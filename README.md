@@ -1,2 +1,2 @@
 # js
-Learning and exercises focuse on style 
+Learning and exercise focuse on style 
