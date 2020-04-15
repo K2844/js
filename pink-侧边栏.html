@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		.w{
+			width:1000px;
+			margin:10px auto;
+		}
+		.box1{
+			height:400px;
+			background-color:#bfa;
+		}
+		.box2{
+			height:500px;
+			background-color:greenyellow;
+		}
+		.box3{
+			height:1000px;
+			background-color:blue;
+		}
+		.sidebar{
+			width:50px;
+			height:150px;
+			background-color:orange;
+			margin-left:1020px;
+			position:absolute;
+			top:500px;
+		}
+		p{
+			font-size:25px;
+			text-align:center;
+			padding:5px 15px;
+			display:none;
+		}
+		</style>
+		<script type="text/javascript" src="tools/move.js"></script>
+		<script type="text/javascript">
+			window.addEventListener("load",function(){
+				var side = document.querySelector(".sidebar");
+				var box2 = document.querySelector(".box2");
+				var text = document.querySelector("p");
+				var box3 = document.querySelector(".box3");
+				//写在外面，不然其值会变化
+				var sideTop = side.offsetTop;
+				var box2Top = box2.offsetTop;
+				document.addEventListener("scroll",function(){
+					//pageYOffset(被卷页面的大小)
+					if(window.pageYOffset > box2.offsetTop){
+						side.style.position = "fixed";
+						side.style.top = sideTop - box2Top + "px";//side.offsetTop - box2.offsetTop + "px";//side.offsetTop + "px";
+						
+					}else{
+						side.style.position = "absolute";
+						side.style.top = sideTop + "px";
+					}
+					//console.log( box3.offsetTop);
+					//console.log( window.pageYOffset);
+					//因为box1，2，3的上下边距为10，中间重合，所以box3的offsetTop是10 + box1.h+ 10 + box2.h +10 
+					//为930px;
+					if(window.pageYOffset > box3.offsetTop){
+						text.style.display = "block";
+					}else{
+						text.style.display = "none";
+					}
+				});
+				//要放在外面，已接受setInterval的值，不然放在事件函数里，会接受不到
+				var timer;
+				text.addEventListener("click",function(){
+					//滚动窗口到特定的位置（x,y）,x,y是不跟单位的，直接写数字即可;
+					//window.scroll(0,0);
+					clearInterval(timer);
+					console.log(timer);
+					timer = setInterval(function(){
+						var y = window.pageYOffset;
+						y -= 100;
+						if(y < 0){
+							y = 0;
+							clearInterval(timer);
+						}
+						window.scroll(0,y);
+					},30);	
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div>
+			<div class="box1 w"></div>
+			<div class="box2 w"><div class="sidebar"><p>返回顶部</p></div></div>
+			<div class="box3 w"></div>
+		</div>
+	</body>
+</html>

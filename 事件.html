@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			/*
+			js中的事件（事件前加on 为事件句柄，每个事件对应一个事件句柄，onxxx出现在标签属性位置上，以属性的形式存在）
+			
+			blur 失去焦点
+			focus 获得焦点
+			
+			click 单击
+			dblclick 双击
+			
+			keydown 按下键盘
+			keyup	键盘弹起
+			
+			mousedown 按下鼠标
+			mouseup	鼠标弹起
+			mouseover 鼠标经过
+			mousemove 鼠标移动
+			mouseout 鼠标移开
+		
+			reset	表单重置
+			submit	表单提交
+			
+			change	下拉列表中项改变   	或     	     文本框内容改变
+			select	文本被选定
+			load	页面加载完毕（整个html加载完毕后）
+			
+			scroll 滚动条滚动
+			*/
+			
+			/*对于当前函数，被称为回调函数，由其他程序负责调用*/
+			function sayHello(){
+				alert("hello");
+			}
+			function sayHello2(){
+				alert("hello2");
+			}
+			//js写在mybtn4元素前，此时该元素还没加载，无法获取该id，当页面加载后则没问题，加因此需上window.onload并赋值
+			/*
+			原型为在body标签中加上“onload=redy();”属性
+			function redy(){
+					var btnObj1 = document.getElementById("mybtn1");
+					btnObj1.onclick = function(){
+						alert("叫你点你还真点");
+				}
+			}
+			*/
+			//只能有一个window.onload，否则前面会被后面的覆盖，可以将要执行的函数都放进window.onload中
+			window.onload = function(){//匿名函数
+				document.getElementById("mybtn4").onclick = function(){
+					alert("叫你点你还真点");
+				}
+				document.getElementById("mybtn5").onclick = function(){
+					//一个节点对象中只要有的属性都可以.
+					document.getElementById("mytext").type = "checkbox";
+				}
+			} 
+			
+		</script>
+	</head>
+	<body>
+		<!-- 注册事件的第一种方法，直接在标签中使用事件句柄 -->
+		<button onclick = "sayHello()">点我试试</button>
+		<button id = "mybtn1" type = "button">再点我试试</button>
+		<button id = "mybtn2" type = "button">你再点我试试</button>
+		<button id = "mybtn3" type = "button">你再点我试试！</button>
+		<button id = "mybtn4" type = "button">你再点我试试！？</button><br />
+		<input type="text" id="mytext" name="name"><br />
+		<button id = "mybtn5" type = "button">点我文字输入框将变成复选框</button><br />
+		<script type="text/javascript">
+			//注册事件的第二种方法，以纯js的方式注册 ---------------------------------------------
+			//1.先获取按钮对象（document代表html，内置对象）
+			var btnObj1 = document.getElementById("mybtn1");
+			//2.给对象的onclicl属性赋值（标签里能写的属性，都可以作为对象的属性，用.使用）
+			btnObj1.onclick = sayHello2;//注意：这里不能在函数名后加小括号，否则是错误的
+			var btnObj2 = document.getElementById("mybtn2");
+			btnObj2.onclick = function() {   //这个是匿名函数（没有函数名），也是回调函数，只有按钮点击时才被调用
+				alert("test...");
+			}
+			//与上面一样，简写了而已（常用写法）
+			document.getElementById("mybtn3").onclick = function(){
+				alert("hahaha");
+			}
+		</script>
+	</body>
+</html>

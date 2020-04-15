@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			#box1,#box2{
+				width:200px;
+				height:200px;
+				background-color:#bfa;
+				margin:10px;
+			}
+			p{
+				color:red;
+			}
+			h3{
+				color:orange;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				//相同点：都是设置元素内部的内容
+				//innerHTML会把后面的字符串当作html代码解释并执行
+				document.getElementById("box1").innerHTML = "<p>nice to see you</p>";
+				//innerText只会将其当作普通文本
+				document.getElementById("box2").innerText = "<h3>nice to see you</h3>";
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box1"></div>
+		<div id="box2"></div>
+	</body>
+</html>

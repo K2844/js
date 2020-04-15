@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			#show{
+				width:200px;
+				height:400px;
+				overflow:auto;
+				margin-top:10px;
+				margin-bottom:50px;
+				margin-left:10px;
+				background-color:#bfa;
+				border:1px solid black
+			}
+			form{
+				font-size:12px;
+			}
+			input{
+				margin-left:10px;
+			}
+
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var show = document.getElementById("show");
+				//给滚动事件绑定函数
+				show.onscroll = function(){
+					//判断是否滚到底部（滚动区域的整体高度-元素离顶部的距离 === 可见框的高度时，表明滚动条到底了）
+					if(show.scrollHeight - show.scrollTop == show.clientHeight){
+						//第一个input的disabled属性的决定是否禁用，false时不禁用，当滚动到底，按钮才可点击
+						var inp = document.getElementsByTagName("input");
+						inp[0].disabled = false;
+						var btn = document.getElementById("btn");
+						btn.disabled = false;
+						btn.onclick = function(){
+							if(document.getElementsByTagName("input")[0].checked){
+								return true;
+							}else{
+								return false;
+							}
+						}
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="show">
+			<div id="agreement">
+				为执行相关服务协议或本政策、维护社会公共利益，为保护我们的客户、我们或我们的关联公司、
+				其他用户或雇员的人身财产安全或其他合法权益合理且必要的用途。我们可能向您发送的信息
+				为执行相关服务协议或本政策、维护社会公共利益，为保护我们的客户、我们或我们的关联公司、
+				其他用户或雇员的人身财产安全或其他合法权益合理且必要的用途。我们可能向您发送的信息
+				为执行相关服务协议或本政策、维护社会公共利益，为保护我们的客户、我们或我们的关联公司、
+				其他用户或雇员的人身财产安全或其他合法权益合理且必要的用途。我们可能向您发送的信息
+				为执行相关服务协议或本政策、维护社会公共利益，为保护我们的客户、我们或我们的关联公司、
+				其他用户或雇员的人身财产安全或其他合法权益合理且必要的用途。我们可能向您发送的信息
+				为执行相关服务协议或本政策、维护社会公共利益，为保护我们的客户、我们或我们的关联公司、
+				其他用户或雇员的人身财产安全或其他合法权益合理且必要的用途。我们可能向您发送的信息
+			</div>
+		</div>
+		<form>
+			<!-- 设置属性disabled="disabled",使其禁用 -->
+			<input type="checkbox" id="check" name="agree" value="agree" disabled="disabled" />我已阅读并同意许可协议
+			<button type="submit" id="btn" disabled="disabled">提交</button>
+		</form>
+	</body>
+</html>

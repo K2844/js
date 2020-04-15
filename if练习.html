@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			var score=prompt("请输入成绩");
+			if(score == ""){
+				alert("分数不能为空");
+			}else if (score > 100 || score < 0 || isNaN(score)){
+				alert("请输入0-100间的数字");
+			}else if(score == 100){
+				alert("奖励一台电脑");
+			}else if(score > 80){
+				alert("奖励一手机");
+			}else if(score > 60){
+				alert("训诫一顿");
+			}else {
+				alert("这成绩也好意思出来玩？");
+			}
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>

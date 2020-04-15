@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			/*
+			低版本的浏览器不支持trim函数，可以扩展一个全新的trim()函数；
+			主要是为了解portotype属性，可以扩展函数
+			*/
+			String.prototype.trim = function(){
+				//this代表当前字符串
+				return this.replace(/^\s+/,"").replace(/\s+$/,"");
+			}
+			window.onload = function(){
+				document.getElementById("mybtn").onclick = function(){
+					var username = document.getElementById("username").value;
+					//去除username的前后空白符
+					username = username.trim();
+					alert("---" + username + "---");
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="username">
+		<button type="submit" id="mybtn">提交</button>
+	</body>
+</html>

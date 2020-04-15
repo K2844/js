@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			#box1{
+				width:100px;
+				height:100px;
+				padding:10px;
+				border:10px,solid,yellow;
+				background-color:#bfa;
+				overflow:auto;
+			}
+			#box2{
+				width:200px;
+				height:200px;
+				padding:10px;
+				border:10px,solid,yellow;
+				background-color:green;
+			}
+		</style>
+		<script type="text/javascript">
+			/*
+			属性和方法
+			下面的属性和方法可用于所有 HTML 元素上：（都是只读的，不可修改）
+			属性 / 							方法	描述
+			element.clientHeight		返回元素的可见高度 （内容区和内边距，不包含边框）。      （1）返回值不带px，可以直接计算
+			element.clientWidth			返回元素的可见宽度。
+			element.getFeature()		返回实现了指定特性的 API 的某个对象。
+			element.getUserData()		返回关联元素上键的对象。
+			element.offsetHeight		返回元素的高度。	（包含边框）					1
+			element.offsetWidth			返回元素的宽度。	（包含边框）					1 
+			element.offsetLeft			返回元素的水平偏移位置。（获取当前元素相对于其定位元素的水平偏移量）1
+			element.offsetParent		返回元素的偏移容器。（获取当前元素的定位父元素）
+			element.offsetTop			返回元素的垂直偏移位置。（获取当前元素相对于其定位元素的垂直偏移量）1
+			element.scrollHeight		返回元素的整体高度。（整个滚动区域的高度）	
+			element.scrollLeft			返回元素左边缘与视图之间的距离。（滚动条水平滚动了的距离）
+			element.scrollTop			返回元素上边缘与视图之间的距离。（滚动条垂直滚动了的距离）
+			element.scrollWidth			返回元素的整体宽度。（整个滚动区域的宽度，即被隐藏的宽度也包括）
+			element.setIdAttribute()	
+			element.setIdAttributeNode()	
+			element.setUserData()		把对象关联到元素上的键。
+			element.style				设置或返回元素的 style 属性。
+			element.toString()			把元素转换为字符串。
+			*/
+			window.onload = function(){
+				var box1 = document.getElementById("box1");
+				document.getElementById("btn").onclick = function(){
+					//alert(box1.clientHeight);
+					//当满足scrollHeight-scrollTop==clientHeight,表明滚动条滚到底了
+					alert(box1.scrollHeight-box1.scrollTop);
+					//当满足scrollWidht-scrollLeft==clientWidth,表明滚动条滚到底了
+					alert(box1.scrollWidht-box1.scrollLeft);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<button type="button" id="btn">test</button>
+		<div id="box1">
+			<div id="box2"></div>
+		</div>
+	</body>
+</html>

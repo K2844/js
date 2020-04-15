@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			/*
+			js三大部分：
+			ECMAscript:js核心语法（ES规范/ECMA262标准）
+			DOM:document object model(文档对象模型，对网页节点进行增删改的过程)HTML被当作DOM属来对待
+				var domObj = document.getElementById("id").
+			BOM:browser object model(浏览器对象模型)
+				关闭浏览器窗口，打开新的浏览器窗口，前进后退，地址栏上的地址，都是BOM编程
+			BOM和DOM的区别和联系：
+				BOM的顶级是window，
+				DOM的顶级是document，
+				实际上BOM是包括DOM的
+			*/
+			window.onload=function(){
+				//给按钮点击绑定函数
+				document.getElementById("mybtn").onclick = function(){
+					//获取输入框的值
+					var username = document.getElementById("username").value;
+					alert(username);
+					//将第一个输入框的值赋给第二个
+					document.getElementById("copy").value = 
+						document.getElementById("username").value; 
+					//更改输入框的值
+					document.getElementById("username").value = "傻逼";
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="username">
+		<input type="text" id="copy">
+		<button type="button" id="mybtn">获取输入框的值</button>
+		<br><br>
+		<!-- 输入框失去焦点时弹出输入的值 -->
+		<!-- this代表当前input节点对象，value为其属性值 -->
+		<input type="text" onblur="alert(this.value)">
+		
+	</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			.mybtn{
+				width:300px;
+				background-color:red;
+				float:right;
+			}
+			button{
+				width:300px;
+				height:50px;
+			}
+			.city-list{
+				width:300px;
+				height:100px;
+				border:1px solid black;
+				float:left;
+				margin-top:50px;
+				margin-left:100px;
+				overflow:hidden;
+			}
+			ul{
+				list-style:none;
+			}
+			li{
+				float:left;
+				background-color:#bfa;
+				margin-left:20px;
+				
+			}
+		</style>
+		<script type="text/javascript">
+			/*	
+				appendChild()	把新的子节点添加到指定节点。（父节点.appendChild(子节点)）
+				removeChild()	删除子节点。（父节点.removeChild(子节点)，或  子节点.parentNode.removeChild(bj);）
+				replaceChild()	替换子节点。（父节点.replaceChild(新节点，旧节点)）
+				insertBefore()	在指定的子节点前面插入新的子节点。（父节点.insertBefore(新节点，旧节点)）
+				createElement()	创建元素节点。(将要创建的标签名称，如“div”写入括号中)
+				createTextNode()	创建文本节点。(需要将文本内容输入括号中)
+			*/
+			function btn(id,fun){
+				document.getElementById(id).onclick=fun;
+			}
+			window.onload = function(){
+				btn("btn1",function(){
+					//创建li节点
+					var li = document.createElement("li");
+					//创建文本节点
+					var gz = document.createTextNode("广州");
+					//将文本节点放入li标签中
+					li.appendChild(gz);
+					//获取id=city的ul节点
+					var city = document.getElementById("city");
+					//添加上面的li对象作为子节点
+					city.appendChild(li);
+				});
+				btn("btn2",function(){
+					//创建li节点
+					var li = document.createElement("li");
+					//创建文本节点
+					var gz = document.createTextNode("广州");
+					//将文本节点放入li标签中
+					li.appendChild(gz);
+					//获取id=city的ul节点
+					var city = document.getElementById("city");
+					//获取#bj的子节点
+					var bj = document.getElementById("bj");
+					city.insertBefore(li,bj);
+				});
+				btn("btn3",function(){
+					//创建li节点
+					var li = document.createElement("li");
+					//创建文本节点
+					var gz = document.createTextNode("广州");
+					//将文本节点放入li标签中
+					li.appendChild(gz);
+					//获取id=city的ul节点
+					var city = document.getElementById("city");
+					//获取#bj的子节点
+					var bj = document.getElementById("bj");
+					//只能替换一次（替换后就没有原来的元素了）
+					city.replaceChild(li,bj);
+				});
+				btn("btn4",function(){
+					//获取id=city的ul节点
+					var city = document.getElementById("city");
+					//获取#bj的子节点
+					var bj = document.getElementById("bj");
+					//删除子节点
+					city.removeChild(bj);
+				});
+				//和4一样，获取父节点方式不同而已
+				btn("btn5",function(){
+					//获取#bj的子节点
+					var bj = document.getElementById("bj");
+					//获取父节点再删除子节点（更好）
+					bj.parentNode.removeChild(bj);
+				});
+				btn("btn6",function(){
+					var text = document.getElementById("city").innerHTML;
+					alert(text);
+				});
+				btn("btn7",function(){
+					document.getElementById("bj").innerHTML = "海口";
+				});
+				btn("btn8",function(){
+					//动作太大，相当于重写整个ul，会使绑定的动作失效
+					document.getElementById("city").innerHTML += "<li>海口</Li>";
+				});
+				//只是重写局部的内容，这样会好一些，具体视情况而定
+				btn("btn9",function(){
+					//创建li节点
+					var li = document.createElement("li");
+					li.innerHTML = "香港";
+					//获取id=city的ul节点
+					var city = document.getElementById("city");
+					//添加上面的li对象作为子节点
+					city.appendChild(li);
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div class="mybtn">
+			<button type="button" id="btn1">创建li标签</button>
+			<button type="button" id="btn2">在#bj前创建li标签</button>
+			<button type="button" id="btn3">替换#bj</button>
+			<button type="button" id="btn4">删除#bj</button>
+			<button type="button" id="btn5">删除#bj</button>
+			<button type="button" id="btn6">读取#city的html代码</button>
+			<button type="button" id="btn7">更改#bj的html代码</button>
+			<button type="button" id="btn8">创建li（innerHTML的方式）</button>
+			<button type="button" id="btn9">创建li（折中的方式）</button>
+		</div>
+		<div class="city-list">
+			<ul id ="city">
+				<li id="bj">北京</li>
+			</ul>
+		</div>
+	</body>
+</html>

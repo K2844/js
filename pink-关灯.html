@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			.dark{
+				background-color:black;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var body = document.body;
+				var turn = document.getElementById("turn");
+				var flag = true;
+				turn.onclick = function(){
+					if(flag){
+						body.className = "dark";
+						flag = false;
+					}else{
+						body.className = "";
+						flag = true;
+					}
+					
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<button type="button" id="turn">开关</button>
+	</body>
+</html>

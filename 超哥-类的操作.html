@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			.box1{
+				width:100px;
+				height:100px;
+				background-color:red;
+				box-shadow:0 1px 10px black;
+			}
+			.box2{
+				width:200px;
+				height:200px;
+				background-color:#bfa;
+			}
+		</style>
+		<script type="text/javascript">
+			/*
+			添加类属性
+			obj:需要修改的对象
+			classname:增加的类属性
+			*/
+			function addClass(obj,classname){
+				//这样判断的值就写死了，不能把box2直接改成classname，需要创建对象（\b表示匹配单词边界）
+				//var reg = /\bbox2\b/;
+				//记得加\\b,两个斜杠代表转义符，等于一个斜杠，加了两个\\b（匹配单词边界），以便匹配搜索的类名
+				/*var reg = new RegExp("\\b" + classname + "\\b");
+				var toAdd = reg.test(obj.className);
+				console.log(toAdd);
+				if(!toAdd){
+					obj.className += " " + classname;
+				}*/
+				if(!hasClass(obj,classname)){
+					obj.className += " " + classname;
+				}
+			}
+			/*
+			判断对象中是否含有该类名
+			obj:需要修改的对象
+			classname:增加的类属性
+			*/
+			function hasClass(obj,classname){
+				var reg = new RegExp("\\b" + classname + "\\b");
+				return reg.test(obj.className);
+			}
+			/*
+			删除类属性
+			obj:需要修改的对象
+			classname:删除的类属性
+			*/
+			function removeClass(obj,classname){
+				var reg = new RegExp("\\b" + classname + "\\b");
+				obj.className = obj.className.replace(reg,"")
+			}
+			/*
+			切换一个类，有则删除，没有则添加
+			*/
+			function toggleClass(obj,classname){
+				if(hasClass(obj,classname)){
+					removeClass(obj,classname);
+				}else{
+					addClass(obj,classname);
+				}
+			}
+			//-------------------------------------------------------------------------------------
+			window.onload = function(){
+				var box1 = document.getElementById("box1");
+				document.getElementById("btn").onclick = function(){
+					/*
+					通过类的操作更改样式，不仅可以提高性能
+					（只渲染一次，obj.style.name则执行一次渲染一次，性能损耗大），
+					也让动作和表现分离
+					*/
+					//box1.className = "box2"//修改class属性,间接修改样式
+					//box1.className += " box2";//类的添加多个类名，拥有两者的属性（未被覆盖的属性值）
+					addClass(box1,"box2");
+				};
+				document.getElementById("btn2").onclick = function(){
+					removeClass(box1,"box2");
+				};
+				document.getElementById("btn3").onclick = function(){
+					toggleClass(box1,"box2");
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<button id="btn">一键添加</button>
+		<button id="btn2">一键删除</button>
+		<button id="btn3">一键更改</button>
+		<div id="box1" class="box1"></div>
+	</body>
+</html>

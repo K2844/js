@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<!-- type属性可以不写，因为浏览器默认的脚本语言是js -->
+		<script>
+			/*window可以不写*/
+			window.alert("你真帅");
+			/*控制台输出，可以用于调试错误*/
+			console.log("k2844")
+			/*document表示网页，一般仅为测试*/
+			document.write("hahaha");
+			/*
+			Uncaught TypeError: Cannot set property 'innerHTML' of null 错误
+			解释：错误原因为document中的innerHTML为空，也就是说在加载js文件时，找不到其中调用的对象即文中的<p>标签。
+			因此需要将js文件引用放置到<p>标签之后
+			总结：这个小问题暴露了html文件加载顺序的理解问题。即html中的内容是按照HTML本身的先后顺序加载的。因此在引入js
+			时或者直接添加<script>内容时在html内容之后执行。
+			*/
+			document.getElementById("demo").innerHTML = 5 + 6;
+		</script>
+	</head>
+	<body>
+		<p id="demo"></p>
+		<!-- js可以写在head中，也可以写在html中（这样加载速度更快） -->
+		<script type="text/javascript">
+			/*用于修改元素里的内容*/
+			document.getElementById("demo").innerHTML = "Hello World";
+		</script>
+		<!-- 
+		可以直接写在onclik属性中，或者a标签的href中（记得引号） 
+		字符串可用单引号或双引号，但不能混用
+		引号不能嵌套，双引号里不能放双引号，单引号中不能放单引号，这时可以用单引号包裹双引号（反过来也行）
+		-->
+		<button onclick="alert('点我干嘛');">点我</button>
+		<!-- javascript告诉浏览器后面是js代码 -->
+		<a href="javascript:alert('叫你点你就点?');">点我试试</a>
+	</body>
+</html>

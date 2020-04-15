@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			/*
+			DOM文档对象模型
+			节点；
+				文档节点---html文档（document,代表整个网页）
+				元素节点---html标签	
+				属性节点---标签中的属性（例如id，name）
+				文本节点---标签中的文本内容
+			获取元素节点（通过document对象调用）
+				getElementById			通过id属性获得对象
+				getElementsByTagName	(获得的是数组)通过标签名获得对象
+				getElementsByName		(获得的是数组)通过name属性获得对象
+			获取元素节点的子节点
+				getElementsByTagName	返回当前节点指定标签名后代节点（子节点中就这一个方法，其他都是属性）
+				childNodes				表示当前节点的所有子节点（标签间的空白也当作子节点，不推荐使用，兼容性也不好）
+				firstChild				表示当前节点的第一个子节点（标签间的空白也当作子节点，不推荐使用）
+				lastChild				表示当前节点的最后一个子节点（标签间的空白也当作子节点，不推荐使用）
+				children				获取当前元素的所有子元素（不包含标签间空白，推荐使用，兼容性好）
+			获取父节点和兄弟节点
+				parentNode				表示当前节点的父节点（属性）
+				previousSibling			表示当前节点的前一个兄弟节点（属性）
+				nextSibling 			表示当前节点的下一个兄弟节点（属性）
+			特殊的
+				body					document中保存一个body属性，对body的引用
+				documentElement			document中的属性，对根标签html的引用
+			补充
+				getElementsByClassName	兼容性较差，需要ie8以上才行，不建议使用
+				document.querySelector()需要一个选择器的字符串作为参数，可以根据一个css选择器查询元素节点对象
+										使用该方法只会返回一个元素，如果符合条件的有多个，则只返回第一个的值
+				document.querySelectorALL()	 与上述方法类似，只是返回符合条件的所有值，类型为数组（ie8以上才支持）
+			*/
+			//可以定义一个回调函数，为指定元素绑定单击响应函数
+			function mybtn(idStr,fun){
+					document.getElementById(idStr).onclick = fun;
+				}
+			window.onload = function(){
+				mybtn("mybtn1",function(){
+					//获取id=test元素的父节点（只有一个）
+					var p = document.getElementById("test").parentNode;
+					alert(p.innerHTML);
+					//会自动将标签去除，只获得文本信息
+					alert(p.innerText);
+					//document.write(p.innerHTML);
+				});
+				document.getElementById("mybtn").onclick = function(){
+					var code = document.getElementById("code");
+					//获得id=code下的所有li节点
+					var codeArr = code.getElementsByTagName("li");//记得s
+					alert(codeArr.length);
+					for(var i = 0; i < codeArr.length ; i++){
+						//获取li标签里的值
+						alert(codeArr[i].innerHTML);
+					}
+					//获取id=code下的所有子节点，标签见空白也会成为节点（7个）
+					var cns = code.childNodes;
+					alert(cns.length);
+					//children属性可以获取当前元素的所有子元素
+					var child = code.children;
+					alert("child="+child.length);
+				}
+				//document中保存一个body属性，对body的引用
+				var body = document.body;
+				alert("body = " + body);
+				//document中的属性，对根标签html的引用
+				var html = document.documentElement;
+				alert("html =" + html);
+				//页面的所有元素
+				var all = document.all;
+				//all = document.getElementsByTagName("*");(等价于all)
+				alert("all = " + all);
+				/*for(var i = 0 ; i < all.length ; i++){
+					alert(all[i]);
+				}*/
+				mybtn("mybtn2",function(){
+					var q = document.querySelector("div .box3");
+					alert(q.innerHTML);
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<button type="button" id="mybtn">按钮</button>
+			<button type="button" id="mybtn1">按钮1</button>
+			<button type="button" id="mybtn2">按钮2</button>
+			<ul id="code">
+				<li>111</li>
+				<li>222</li>
+				<li>333</li>
+			</ul>
+			<ul id="num">
+				<li id="test">444</li>
+				<li>555</li>
+				<li>666</li>
+			</ul>
+			<ul class="box3">
+				<li id="test">444</li>
+				<li>555</li>
+				<li>666</li>
+			</ul>
+		</div>
+		<p></p>
+	</body>
+</html>

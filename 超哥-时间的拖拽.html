@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			#box1{
+				width:100px;
+				height:100px;
+				background-color:red;
+				position:absolute;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var box1 = document.getElementById("box1");
+				box1.onmousedown = function(event){
+					//消除鼠标点击时物体偏移量（鼠标点击时，偏移量就已经有了，并且固定不变，鼠标一点击就就算，这样只要计算1次，）
+					var offsetLeft = event.pageX - box1.offsetLeft;
+					var offsetTop = event.pageY - box1.offsetTop;
+					//取消网页默认拖拽进行搜索，以免误触（为了兼容ie8）
+					//对所有点击事件进行捕获
+					if(box1.setCapture){//setCapture只ie支持，可写成box1.setCapture && box1.setCapture（）
+						box1.setCapture();
+					}
+					//给页面绑定，以免被其他物体遮住而无法跟随移动
+					document.onmousemove = function(event){
+						event = event || window.event;
+						//鼠标点击时的位置在box1里，这时box1的水平和垂直偏差和鼠标的x和y坐标不一致，所以要消除偏差、
+						var left = event.pageX- offsetLeft;
+						var top = event.pageY - offsetTop;
+						box1.style.left = left + "px";
+						box1.style.top = top + "px";
+						//取消对所有事件的捕获
+						//等同于if语句，存在这个属性（ie），则执行
+						box1.releaseCapture && box1.releaseCapture();
+					}
+					document.onmouseup = function(event){
+						document.onmousemove = null;
+					};
+					return false;//取消网页默认拖拽进行搜索，以免误触，但对ie8无效
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<div id="box1"></div>
+	</body>	
+</html>

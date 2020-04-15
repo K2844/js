@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+		div{
+			overflow:hidden;
+		}
+		h1{
+			float:left;
+		}
+		button{
+			width:100px;
+			height:50px;
+			float:right;
+			margin-top:15px;
+			border:none;
+			border-radius:10px;
+			background-color:orange;
+			box-shadow:0 0 5px #888;
+		}
+		button:hover{
+			transform:translateY(-1px) translateX(-1px);
+		}
+		table{
+			  border:1px solid black;
+			  width:80%;				  
+			  /*设置边框的合并*/
+			  border-collapse:collapse;
+			  margin:0 auto;
+			  text-align:center
+		}
+		thead{
+			 /*border:2px solid black;*/
+			 font-weight:bold;
+			 font-size:18px;
+		}
+		td{
+			  border:1px solid black;
+			  /*设置边框的合并*/
+			  border-collapse:collapse;
+			  
+		}
+		</style>
+		<script type="text/javascript">
+			//实际情况一般由后台如java从数据库取得数据并传给前端
+			var data = {
+				total:4,
+				employee:[
+				{"code":"00001","name":"jerry","salary":10000},
+				{"code":"00002","name":"kary","salary":15000},
+				{"code":"00003","name":"marty","salary":12000},
+				{"code":"00004","name":"tom","salary":9000}
+				]};
+			window.onload = function(){
+				document.getElementById("search").onclick = function(){
+					var empArr =data.employee; 
+					var html = "";
+					for(var i = 0 ; i < empArr.length ; i++){
+						html += "<tr>";
+						html += "<td>" + empArr[i].code + "</td>";
+						html += "<td>" + empArr[i].name + "</td>";
+						html += "<td>" + empArr[i].salary + "</td>";
+						html += "</tr>";
+					}
+					document.getElementById("data").innerHTML=html;
+					document.getElementById("count").innerHTML=data.total;
+				}				
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<h1>员工信息列表</h1>
+			<button type="button" id="search">查询</button>
+		</div>
+		<hr>
+		<table>
+			<thead>
+				<tr><td>员工编号</td><td>员工姓名</td><td>员工薪资</td></tr>
+			</thead>
+			<tbody id="data">
+			</tbody>
+		</table>
+		<p>总共<span id="count"></span>条</p>
+	</body>
+</html>

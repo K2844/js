@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			window.onload = function(){
+				//下拉列表改变时触发函数
+				document.getElementById("province").onchange = function(){
+					var province = document.getElementById("province").value;
+					alert(province);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<!-- 如果要给省份下绑定市，需要数据库绑定外键 -->
+		<select id="province" name="province">
+			<option value="">--省份--</option>
+			<option value="1">北京</option>
+			<!-- selectde设为默认选择 -->
+			<option value="2" selected>江苏</option>
+			<option value="3">浙江</option>
+			<option value="4">广东</option>
+			<option value="5">海南</option>
+			<option value="6">福建</option>
+		</select>
+	</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			#box1{
+				width:100px;
+				height:100px;
+				background-color:#bfa;
+				/*background-color:#bfa ！important;*/
+			}
+		</style>
+		<script type="text/javascript">
+			/*
+				通过js修改元素的内联样式
+					语法：元素.style.样式名 = 样式值
+					注意：如果名字含有“-”，转为驼峰型，如backgroundColor
+					通过style属性设置和读取的都是内联样式（无法读取样式表中的样式），优先级较高，所有修改后往往立即显示，甚至覆盖原先的样式
+					加上！important后的优先级最高，样式js将无法更改
+			*/
+			
+			/*
+				获取元素当前显示的样式
+				语法：元素.currentStyle.样式名 = 样式值（谁生效就获取谁的值，
+				即看到的是红色，则取得的也是红色，所见即所得，不设置样式则取得默认值）
+				只有IE支持
+			*/
+			
+			/*
+				其他浏览器中使用
+				getComputedStyle()获取元素当前的样式，这个是window的方法，可以直接用
+				需要两个参数
+					1.要获取样式的元素
+					2.可以传递一个伪元素，一般都传null
+				该方法会返回一个对象，对象中封装了当前元素所对应的样式
+				可通过对象.对象名获得样式
+				如果样式没有设置，会得到真实的值，而不会出现auto
+				该方法不支持IE8即以下浏览器
+				--------------------------------------------
+				currentStyle.样式名和getComputedStyle()都是只读的，如需修改，还需要通过style进行
+				--------------------------------------------
+			*/
+			
+			/*
+				定义一个函数，获取指定元素的当前样式（兼容所有浏览器）
+				obj		要获取样式的元素对象
+				name	要查询的属性名
+			*/
+			function getStyle(obj,name){
+				//不加window是变量，找不到会报错，加了window是属性，找不到是undefined
+				if(window.getComputedStyle){
+					return getComputedStyle(obj,null)[name];
+				}else{
+					return obj.currentStyle[name];
+				}
+			}
+			window.onload = function(){
+				document.getElementById("btn").onclick = function(){
+					var box1 = document.getElementById("box1");
+					//box1.style.width = "200px";
+					//box1.style.backgroundColor = "red";
+					//alert(getComputedStyle(box1,null));
+					//alert(getComputedStyle(box1,null).width);
+					var w = getStyle(box1,"width");
+					alert(w);
+				}
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<button type="button" id="btn">test</button>
+		<div id="box1"></div>
+	</body>
+</html>

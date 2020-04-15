@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			window.onload = function(){
+				var inp = document.getElementById("inp");
+				inp.onkeydown = function(event){
+					event = event || window.event;
+					if(event.keyCode === 13 && event.ctrlKey){
+						alert("ctrl和enter同时按下了");
+					}
+					//当输入数字，则无法显示在文本框中
+					//连续按键盘时，开始停顿，然后速度变快，是默认行为，防止误操作
+					if(event.keyCode >= 48 && event.keyCode <= 57){
+						//onkeydown设置了return false，则输入的内容不会出现在文本框中
+						return false;
+					}
+				};
+				/*inp.onkeyup = function(){
+					alert("按键松开了");
+				}*/
+			};
+		</script>
+	</head>
+	<body>
+		<input type="text" id="inp" />
+	</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			.outer{
+				width:800px;
+				height:600px;
+				border-right:1px solid black;
+			}
+			#box1{
+				width:100px;
+				height:100px;
+				background-color:red;
+				position:absolute;
+				left:0;
+			}
+			#box2{
+				width:100px;
+				height:100px;
+				background-color:#bfa;
+				position:absolute;
+				top:150px;
+				left:0;
+			}
+		</style>
+		<script type="text/javascript" src="tools/move.js"></script>
+		<script type="text/javascript">
+			/*
+				定义一个函数，获取指定元素的当前样式（兼容所有浏览器）
+				obj		要获取样式的元素对象
+				name	要查询的属性名
+			*/
+			function getStyle(obj,name){
+				//不加window是变量，找不到会报错，加了window是属性，找不到是undefined
+				if(window.getComputedStyle){
+					return getComputedStyle(obj,null)[name];
+				}else{
+					return obj.currentStyle[name];
+				}
+			}
+			/*
+			提取出的改变运动的函数
+			obj:移动的对象；
+			name：改变的属性名称
+			speed:移动的速度（正值）
+			target：目标位置
+			interval：计时器间隔时间
+			*/
+			/*从外部文件引入了
+			function move(obj,name,speed,target,interval,callback){
+				clearInterval(obj.timer);
+				//函数执行就先判断当前位置，如果大于目标值，则速度取负值
+				var current = parseInt(getStyle(obj,name));
+				if(current > target){
+					speed = -speed;
+				}
+				obj.timer = setInterval(function(){
+					var oldValue = parseInt(getStyle(obj,name));
+					var newValue = oldValue + speed;
+					//&&优先级高于||，为了好看，加上了括号
+					if((speed < 0 && newValue < target) || (speed > 0 && newValue > target)){
+						newValue = target;
+					}
+					obj.style[name] = newValue + "px";
+					if(newValue === target){
+						clearInterval(obj.timer);
+						//到达目标位置后，执行回调函数
+						callback && callback();//callback判断是否存在，如果存在，则调用callback()
+					}
+				},interval);
+			}
+			*/
+			window.onload = function(){
+				var box1 = document.getElementById("box1");
+				var box2 = document.getElementById("box2");
+				document.getElementById("btn1").onclick = function(){
+					/*只是设置了往右的移动，此处要做一个通用方法，适用于各方向的移动
+					setInterval(function(){
+						box1.style.left = box1.offsetLeft + 10 + "px";
+					},30);
+					*/
+					//清除之前该元素上的计时器（开启前先确保关闭）
+					//为了和提取出的回调函数一致，timer前加上obj（此处为box1，以免box1左右移动冲突）
+					clearInterval(box1.timer);
+					box1.timer = setInterval(function(){
+						//获取box1原来的left值（parseInt将px给去掉了，只有数字，可直接运算）
+						//（由于ie默认left为auto，为了方便计算，在样式表中给出left的值）
+						var oldValue = parseInt(getStyle(box1,"left"));
+						var newValue = oldValue + 7;
+						//这样即使不是10，也不会导致无法在指定值停下（先判断，再赋值给left，以免超出）
+						if(newValue > 800){
+							newValue = 800;
+						}
+						box1.style.left = newValue + "px";
+						//当left=800时停止
+						if(newValue === 800){
+							clearInterval(box1.timer);
+						}
+					},30);
+				};
+				/*
+				document.getElementById("btn2").onclick = function(){
+					clearInterval(timer);
+					timer = setInterval(function(){
+						var oldValue = parseInt(getStyle(box1,"left"));
+						var newValue = oldValue - 7;
+						if(newValue < 0){
+							newValue = 0;
+						}
+						box1.style.left = newValue + "px";
+						if(newValue === 0){
+							clearInterval(timer);
+						}
+					},30);
+				};
+				*/
+				document.getElementById("btn2").onclick  = function(){
+					move(box1,"left",8,0,100);
+				}
+				document.getElementById("btn3").onclick  = function(){
+					move(box2,"left",20,800,30,function(){
+						move(box2,"height",20,800,30,function(){
+							move(box2,"left",8,0,30,function(){
+								move(box2,"width",10,800,30);
+							});
+						});
+					});
+				}
+				/*
+				这样写也可以执行，通过id名直接获得对象，不清楚原理，box1和box2也一样，不获取对象也可以直接操作，并能在控制台输出对象是div
+				btn4.onclick  = function(){
+					move(box2,"left",8,0,30);
+				}
+				*/
+				document.getElementById("btn4").onclick  = function(){
+					move(box2,"left",8,0,30);
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div class="outer">
+			<button type="button" id="btn2">点击按钮box1向左移动</button>
+			<button type="button" id="btn1">点击按钮box1向右移动</button>
+			<button type="button" id="btn4">点击按钮box2向左移动</button>
+			<button type="button" id="btn3">点击按钮box2向右移动</button>
+			<div id="box1"></div>
+			<div id="box2"></div>
+		</div>
+	</body>
+</html>

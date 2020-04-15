@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			window.onload = function(){
+				var btn = document.getElementById("btn");
+				/*
+				addEventListener，通过这个方法可以为元素绑定响应函数
+				（可为同一元素的相同事件绑定多个函数，被触发时按绑定顺序逐一执行）
+				参数：
+					事件的字符串（不要on）
+					回调函数，事件触发时该函数会被调用
+					是否在捕获阶段触发事件，需要一个布尔值，一般都传false
+					（捕获，目标，冒泡三个阶段，捕获是由外到内传播，默认不触发事件，
+					冒泡是由内向外传播（子元素到父元素），此时事件会触发响应）
+				ie8及以下不支持
+				*/
+				btn.addEventListener("click",function(){
+					alert("111");
+				},false);
+				btn.addEventListener("click",function(){
+					alert("222");
+				},false);
+			};
+		</script>
+	</head>
+	<body>
+		<button id="btn"></button>
+	</body>
+</html>

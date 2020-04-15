@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="fa/css/all.css" />
+		<style type="text/css">
+			.menu{
+				
+			}
+			.list-wrapper{
+				width:200px;
+				margin:0 auto;
+				margin-top:20px;
+				background-color:rgba(0,0,0,0.7);
+				
+			}
+			.list-wrapper > li{
+				line-height:30px;
+				overflow:hidden;
+				
+			}
+			.childlist{
+				background-color:rgba(255,255,255,.4);
+			}
+			a{
+				text-decoration:none;
+				padding-left:20px;
+				color:white;
+				display:block;
+			}
+			a:hover .fa{
+				transform:rotateZ(90deg) translateX(7px);
+			}
+			li .fa{
+				font-size:20px;
+				line-hight:30px;
+				padding-right:10px;
+				vertical-align:center;
+				transform:translateX(7px);
+			}
+			.collapse{
+				height:30px;
+			}
+		</style>
+		<script type="text/javascript" src="tools/changeClass.js"></script>
+		<script type="text/javascript" src="tools/move.js"></script>
+		<script type="text/javascript">
+			function toggleMenu(obj,name){
+				var start = obj.offsetHeight;
+				toggleClass(obj,name);
+				var end = obj.offsetHeight;
+				obj.style.height = start + "px";
+				console.log("start:" + start + "end:" + end + obj.style.height);
+				move(obj,"height",10,end,30,function(){
+					pn.style.height ="";
+				});
+			}
+			window.onload = function(){
+				var spanArr = document.querySelectorAll(".btn");
+				//默认给第一个菜单展开（html中写的），将其赋值给当前打开菜单
+				var currentOpen = spanArr[0].parentNode;
+				for(var i = 0 ; i < spanArr.length ; i++){
+					spanArr[i].onclick = function(){
+						//获取父元素节点
+						var pn = this.parentNode;
+						//获取菜单收起前的高度
+						var start = pn.offsetHeight;
+						toggleClass(pn,"collapse");
+						//获取菜单收起后的高度
+						var end = pn.offsetHeight;
+						//把初始高度再赋值给父节点的高度，这样将无法变化，等于没效果，由move回调函数来执行动作，这样就有动画效果
+						pn.style.height = start + "px";
+						console.log("start:" + start + "end:" + end + pn.style.height);
+						//执行动作
+						move(pn,"height",10,end,30,function(){
+							//菜单折叠或打开完成后，执行回调函数，清空内联样式中的高度，以免覆盖样式表导致菜单打不开
+							pn.style.height ="";
+						});
+						if(currentOpen != pn &&!hasClass(currentOpen,"collapse")){
+							//打开一个菜单前，先给另一个菜单加上“collapse”类（收起该菜单）
+							//addClass(currentOpen,"collapse");
+							//toggleClass(currentOpen,"collapse");
+							toggleMenu(currentOpen,"collapse");
+						}
+						//把点击的菜单赋值给当前打开的菜单，以便下次打开时关闭
+						currentOpen = pn;
+					};
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div id="menu" class="menu">
+			<ul id="list" class="list-wrapper">
+				<li >
+					<span class="btn"><a href="javascript:;"><i class="fa fa-caret-right"></i>在线工具</a></span>
+					<ul class="childlist">
+						<li><a href="javascript:;">pdf在线转换</a></li>
+						<li><a href="javascript:;">密码在线爆破</a></li>
+						<li><a href="javascript:;">在线翻墙</a></li>
+						<li><a href="javascript:;">手机跟踪</a></li>
+						<li><a href="javascript:;">短信拦截</a></li>
+					</ul>
+				</li>
+				<li class="collapse">
+					<span class="btn"><a href="javascript:;"><i class="fa fa-caret-right"></i>软件下载</a></span>
+					<ul class="childlist">
+						<li><a href="javascript:;">万能播放器</a></li>
+						<li><a href="javascript:;">键盘记录器</a></li>
+						<li><a href="javascript:;">翻墙vip</a></li>
+					</ul>
+				</li>
+				<li class="collapse">
+					<span class="btn"><a href="javascript:;"><i class="fa fa-caret-right"></i>支持我们</a></span>
+					<ul class="childlist">
+						<li><a href="javas cript:;">代码贡献</a></li>
+						<li><a href="javascript:;">打赏</a></li>
+						<li><a href="javascript:;">加入我们</a></li>
+					</ul>
+				</li>
+				<li class="collapse">
+					<span class="btn"><a href="javascript:;"><i class="fa fa-caret-right"></i>合作伙伴</a></span>
+					<ul class="childlist">
+						<li><a href="javascript:;">京东</a></li>
+						<li><a href="javascript:;">小米</a></li>
+						<li><a href="javascript:;">阿里巴巴</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

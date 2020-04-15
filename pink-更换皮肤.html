@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			ul{
+				height:100px;
+				width:600px;
+				margin:0 auto;
+				list-style-type:none;
+				overflow:hidden;
+			}
+			li{
+				float:left;
+				opacity:0.5;
+			}
+			li:hover{
+				opacity:1;
+			}
+			img{
+				width:150px;
+				height:100px;
+			}
+			body{
+				background-size:cover;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var ul = document.getElementsByTagName("ul")[0];
+				var body = document.body;
+				var imgArr = document.getElementsByTagName("img");
+				for(var i = 0 ; i < imgArr.length ; i++){
+					imgArr[i].num = i;
+				}
+				ul.onclick = function(event){
+					var src = event.target.src;
+					body.style.backgroundImage = "url(" + src + ")";//要分开写，不然会当作绝对路径来找
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<ul>
+				<li><img alt="地球" src="images/地球.jpeg"></li>
+				<li><img alt="风车" src="images/风车.jpg"></li>
+				<li><img alt="麋鹿" src="images/麋鹿.jpg"></li>
+				<li><img alt="星空" src="images/星空.jpg"></li>
+			</ul>
+		</div>
+	</body>
+</html>

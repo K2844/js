@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			window.onload = function(){
+				//event、为局部变量，可以是任意名称（如果不写也可以执行，只是拿不到键值，想写几个参数都行，但只第一个生效，因为这里浏览器只传了一个值过来）
+				//event为事件对象
+				document.getElementById("username").onkeydown = function(event){
+					//获取键值，对于键盘事件对象来说，都有keyCode属性获取键值
+					if(event.keyCode === 13){
+						alert("正在验证......");	
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="username"><br>
+	</body>
+</html>

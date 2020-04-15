@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>Insert title here</title>
+		<style type="text/css">
+			div{
+				width:50px;
+				height:50px;
+				background-color:red;
+				position:absolute;
+			}
+		</style>
+		<script type="text/javascript">
+			/*
+			移动端触屏事件：
+				touchstart	手指触摸dom元素时触发
+				touchmove	手指滑动dom元素时触发
+				touchend	手指离开dom元素时触发
+				
+			
+			触摸事件对象：用于描绘手指在触摸平面的状态变化事件
+				touches		正在触摸屏幕的所以手指的一个列表
+				targetTouches	正在触摸当前DOM元素上的手指的一个列表（常用）。如果侦听的是同一个dom元素，和touchues是一样的
+				changedTouches	手指状态发生改变的列表，从无到有，从有到无
+			*/
+			window.addEventListener("load",function(){
+				var div = document.querySelector("div");
+				/*div.addEventListener("touchstart",function(e){
+					console.log(e);//可以在控制台查看触摸事件对象
+					console.log(e.targetTouches[0]);//得到触摸dom元素的第一个的手指相关信息，如坐标
+				});*/
+				var x;
+				var y;
+				var startX;
+				var startY;
+				div.addEventListener("touchstart",function(e){
+					startX = e.targetTouches[0].pageX;
+					startY = e.targetTouches[0].pageY;
+					x = this.offsetLeft;
+					y = this.offsetTop;
+				});
+				div.addEventListener("touchmove",function(e){
+					var moveX = e.targetTouches[0].pageX - startX;
+					var moveY = e.targetTouches[0].pageY - startY;
+					div.style.left = x + moveX + "px";
+					div.style.top = y + moveY + "px";
+					e.preventDefault();//阻止屏幕滚动的默认行为
+				});
+			});
+			
+		</script>
+	</head>
+	<body>
+		<div></div>
+	</body>
+</html>

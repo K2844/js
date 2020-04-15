@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			/*
+				window.open() - 打开新窗口
+				window.close() - 关闭当前窗口
+				window.moveTo() -移动当前窗口
+				window.resizeTo() -重新调整当前窗口
+			*/
+		</script>
+	</head>
+	<body>
+		<!-- 由于还没嵌套，所以当前页面父窗口和顶级窗口都是自己 -->
+		<button type="button" onclick="window.open('http://www.baidu.com')">开启百度（新窗口）</button>
+		<button type="button" onclick="window.open('http://www.baidu.com','_self')">开启百度（当前窗口）</button>
+		<button type="button" onclick="window.open('http://www.baidu.com','_blank')">开启百度（新窗口）</button>
+		<button type="button" onclick="window.open('http://www.baidu.com','_parent')">开启百度（父窗口）</button>
+		<button type="button" onclick="window.open('http://www.baidu.com','_top')">开启百度（顶级窗口）</button>
+		<button type="button" onclick="window.close()">关闭当前窗口</button>
+	</body>
+</html>

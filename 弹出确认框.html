@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			function del(){
+				//弹出确认框，window.confirm()返回的是一个布尔值，确定则为true
+				if(confirm("确定要删除吗？")){
+					alert("正在删除......");
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<button type="button" onclick=del()>删除</button>
+	</body>
+</html>

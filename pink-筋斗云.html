@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<script type="text/javascript" src="tools/move.js"></script>
+		<style type="text/css">
+			ul{
+				display:flex;
+				width:800px;
+				line-height:30px;
+				text-align:center;
+				box-shadow:0 0 10px black;
+			}
+			li{
+				flex:auto;
+				background-color:gray;
+				border:1px solid black;
+			}
+			span{
+				height:30px;
+				width:100px;
+				
+				position:absolute;
+				background-size:contain;
+				background-image:url(images/timg.jpg);
+				background-repeat:no-repeat;
+				background-position:center;
+				left:0px;
+				opacity:0.3;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var ul = document.querySelector("ul");
+				var liArr = document.getElementsByTagName("li");
+				var index = 0;
+				for(var i = 0 ; i < liArr.length ; i++){
+					liArr[i].num = i;
+				}
+				ul.onclick = function(event){
+					index = event.target.num;
+					
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<div>
+			<span class="clound"></span>
+			<ul>
+				<li>111</li>
+				<li>111</li>
+				<li>111</li>
+				<li>111</li>
+				<li>111</li>
+			</ul>
+		</div>
+		
+	</body>
+</html>

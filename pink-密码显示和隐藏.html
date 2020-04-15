@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="fa/css/all.css" />
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		.box1{
+			width:200px;
+			margin:20px auto;
+			background-color:red;
+			position:relative;
+			}
+		input{
+			outline:none;
+			padding:0 15px;
+			line-height:30px;
+			width:200px;
+			border:none;
+			color:#ccc;
+			border-bottom:1px solid gray;
+		}
+		input:focus{
+			color:black;
+		}
+		.fa-eye,.fa-eye-slash{
+			position:absolute;
+			color:gray;
+			font-size:14px;
+			top:30px;
+			line-height:30px;
+			right:-30px;
+		}
+		span{
+			position:absolute;
+			font-size:12px;
+			line-height:30px;
+			color:gray;
+		}
+		.one{
+			top:0;
+		}
+		.two{
+			top:30px;
+		}
+		#test{
+			position:absolute;
+		}
+	</style>
+	<script type="text/javascript">
+		function eyePassword(eyeObj,inpObj){
+			eyeObj.onclick = function(){
+				if(eyeObj.className == "fa fa-eye-slash"){
+					eyeObj.className = "fa fa-eye";
+					inpObj.type = "text";
+				}else{
+					eyeObj.className = "fa fa-eye-slash";
+					inpObj.type = "password";
+				}
+			}
+		}
+		window.onload = function(){
+			var name = document.getElementById("name");
+			var pwd = document.getElementById("pwd");
+			//var span = document.getElementsByTagName("span");
+			var i = document.querySelector(".fa");
+			//alert(i.className);
+			/*for(var i = 0 ; i < input.length ; i++){
+				input[i].num = i;
+				//span[i].num = i;
+				input[i].onfocus = function(){
+					if(this.value.length > 0){
+						span[0].innerHTML = "";
+					}
+				}
+			}*/
+			eyePassword(i,pwd);
+			//i.onclick = function(){
+				/*if(i.className == "fa fa-eye-slash"){
+					i.className = "fa fa-eye";
+					input[1].type = "text";
+				}else{
+					i.className = "fa fa-eye-slash";
+					input[1].type = "password";
+				}*/
+				
+			//}
+			name.onfocus = function(){
+				if(this.value == "输入用户名"){
+					name.value="";
+				}
+				name.style.color = "black";
+			}
+			name.onblur = function(){
+				if(name.value == ""){
+					name.value = "输入用户名";
+					name.style.color = "";
+				}
+			}		
+			pwd.onfocus = function(){
+				if(this.value == "输入密码"){
+					pwd.value="";
+				}
+				pwd.type = "password";
+				pwd.style.color = "black";
+			}
+			pwd.onblur = function(){
+				if(pwd.value == ""){
+					pwd.value = "输入密码";
+					pwd.style.color = "";
+					pwd.type = "text";
+				}
+			}			
+		}
+	</script>
+	</head>
+	<body>
+		<div class="box1">
+			<!-- value改为placeholder会更好，输入时输入框内的文字消失 -->
+			<input type="text" id="name" name="name" value="输入用户名"/>
+			<!-- <label for="name"><span class="one">输入用户名</span></label> -->
+			<input type="text" id="pwd" name="pwd" value="输入密码"/>
+			<!-- <label for="pwd"><span class="two">输入密码</span></label> -->
+			<label for=""><i class="fa fa-eye-slash"></i></label>
+		</div>
+	</body>
+</html>

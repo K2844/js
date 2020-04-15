@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript">
+			window.onload = function(){
+				//getElementsByName获得name为items的对象，此处为数组
+				var fruit = document.getElementsByName("items");
+				document.getElementById("all").onclick = function(){
+					for(var i = 0 ; i < fruit.length; i++ ){
+						//多选框对象的checked属性，值为true或false。使每一个的值等于全选框的checked值，省去判断条件是否为true
+						fruit[i].checked = document.getElementById("all").checked;
+					}
+				}
+				for(var i = 0 ; i < fruit.length; i++ ){
+					//给每一个复选框绑定函数,但函数中还没有fruit[i]这个值，需要遍历得到
+					fruit[i].onclick = function(){
+						//勾选水果的数量，进入循环前要清零
+						var num = 0;
+						//遍历每一个复选框的checked值，每触发依次onclick事件，都会进行一次循环，判断有几个复选框被选中
+						for(var i = 0 ; i < fruit.length; i++){
+							if(fruit[i].checked){
+								num++;
+							}
+						}
+						if(num == fruit.length){
+							//当选中的复选框的量和数组长度相同时，使"全选/取消全选"复选框被选中
+							document.getElementById("all").checked = true;
+						}else{
+							//当选中的复选框的量和数组长度不同时，使"全选/取消全选"复选框被取消（全选后又取消个边选项时，将生效）
+							document.getElementById("all").checked = false;
+						}
+					}
+				}
+				/*if(num == fruit.length){
+					document.getElementById("all").checked = true;
+				}*/
+			}
+		</script>
+	</head>
+	<body>
+		<input type = "checkbox" id = "all" name = "all" value = "全选/取消全选">
+		<span>全选/取消全选</span><br>
+		<input type = "checkbox" id = "apple" name = "items" value = "苹果">
+		<span>苹果</span><br>
+		<input type = "checkbox" id = "banana" name = "items" value = "香蕉">
+		<span>香蕉</span><br>
+		<input type = "checkbox" id = "orange" name = "items" value = "橘子">
+		<span>橘子</span><br>
+		<button type = "submit">提交</button>
+	</body>
+</html>

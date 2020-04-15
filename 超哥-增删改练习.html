@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			.add{
+				border:1px solid black;
+				width:300px;
+				height:200px;
+				margin:0 auto;
+				text-align:center;
+				/*将会调整块元素里的输入框，和按钮，文字到中间*/
+				line-height:20px;
+			}
+			form input{
+				width:200px;
+				height:30px;
+				margin-top:2px;
+				
+			}
+			form button{
+				width:200px;
+				height:50px;
+				margin-left:50px;
+				margin-top:10px;
+			}
+			table{
+				border:1px solid black;
+				width:300px;
+				text-align:center;
+				border-collapse:collapse;
+				margin:0 auto;
+				margin-top:10px;
+				margin-bottom:10px;
+			}
+			td{
+				border:1px solid black;
+			}
+			td a{
+				text-decoration:none;
+			}
+		</style>
+		<script type="text/javascript">
+			function todelete(){
+				//点哪个，this就是哪个（a标签，它的父元素的父元素的父元素才是表格）
+				var tr = this.parentNode.parentNode;
+				//这样将总是获得第一个td的内容
+				var name = tr.getElementsByTagName("td")[0].innerHTML;
+				var c = confirm("要删除" + name + "吗？");
+				if(c){
+					tr.parentNode.removeChild(tr);
+				}
+			}
+			/*点击超链接后会发生跳转，这是默认行为，如果不希望发生调整，可以return false ，取消默认行为，或者href="javascript:;"*/
+			window.onload = function(){
+				var emp = document.getElementById("employee");
+				//获得employee节点下的所有a标签（数组）
+				var ea = emp.getElementsByTagName("a");
+				for(var i = 0 ; i < ea.length ; i++){
+					//给每一个a标签绑定函数（已经提取出来，todelete函数，此处不更换了）
+					ea[i].onclick = function(){
+						//点哪个，this就是哪个（a标签，它的父元素的父元素的父元素才是表格）
+						var tr = this.parentNode.parentNode;
+						//这样将总是获得第一个td的内容
+						var name = tr.getElementsByTagName("td")[0].innerHTML;
+						var c = confirm("要删除" + name + "吗？");
+						if(c){
+							tr.parentNode.removeChild(tr);
+						}
+					}
+				}
+				document.getElementById("btn").onclick = function(){
+					//获得输入框的值
+					var name = document.getElementById("name").value;
+					var mail = document.getElementById("e-mail").value;
+					var salary = document.getElementById("salary").value;
+					var addtr = document.createElement("tr");
+					//把href中的双引号改成单引号
+					addtr.innerHTML = "<td>" + name + "</td>" +
+									"<td>" + mail + "</td>" +
+									"<td>" + salary + "</td>" +
+									"<td><a href='javascript:;'>删除</a></td>";
+					addtr.getElementsByTagName("a")[0].onclick = todelete;
+					var table = document.getElementById("employee");
+					table.appendChild(addtr);
+					//给table节点添加子节点（tr）
+					//table.appendChild(addtr);
+					//创建td标签
+					/*var nametd = document.createElement("td");
+					var mailtd = document.createElement("td");
+					var salarytd = document.createElement("td");
+					var deltd = document.createElement("td");
+					//创建a标签
+					var a = document.createElement("a");
+					//创建文本节点
+					var nameText = document.createTextNode(name);
+					var mailText = document.createTextNode(mail);
+					var salaryText = document.createTextNode(salary);
+					var aText = document.createTextNode("删除");
+					//给a节点添加子节点（文本节点）
+					a.appendChild(aText);
+					//给a标签的href属性赋值---------------------
+					a.href = "javascript:;";
+					//给td节点添加子结点（文本节点，和a节点）
+					nametd.appendChild(nameText);
+					mailtd.appendChild(mailText);
+					salarytd.appendChild(salaryText);
+					deltd.appendChild(a);
+					//给tr节点添加子节点（td）
+					addtr.appendChild(nametd);
+					addtr.appendChild(mailtd);
+					addtr.appendChild(salarytd);
+					addtr.appendChild(deltd);
+					alert(addtr.innerHTML);
+					//获取table节点
+					var table = document.getElementById("employee");
+					//给table节点添加子节点（tr）
+					table.appendChild(addtr);
+					*/
+					/*----------教程里说的，现在貌似已经不会默认添加tbody了
+					如果浏览器默认设置了表格内容再tbody中，为了将表格内容也加入tbody
+					var tbody = table.getElementsByTagName("tbody");
+					tbody.appendChild(addtr);
+					*/
+					//给a标签绑定函数
+					//a.onclick=todelete;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<table id="employee">
+			<tr>
+				<th>Name</th>
+				<th>E-mail</th>
+				<th>Salary</th>
+				<th>操作</th>
+			</tr>
+			<tr>
+				<td>jery</td>
+				<td>323454645@qq.com</td>
+				<td>30000</td>
+				<td><a href="javascript:;">删除</a></td>
+			</tr>
+			<tr>
+				<td>tom</td>
+				<td>3425345@163.com</td>
+				<td>9000</td>
+				<td><a href="javascript:;">删除</a></td>
+			</tr>
+			<tr>
+				<td>jane</td>
+				<td>1245732@11.com</td>
+				<td>Salary</td>
+				<td><a href="javascript:;">删除</a></td>
+			</tr>
+		</table>
+		<div class="add">
+			<p>添加员工</p>
+			<form>
+				姓名：<input type="text" id="name" name="name"/><br>
+				E-mail:<input type="text" id="e-mail" name="e-mail"/><br>
+				薪资：<input type="text" id="salary" name="salary"/><br>
+				<button type="button" id="btn">提交</button>
+			</form>
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			body{
+				background-image:url(images/星空.jpg);
+				background-size:cover;
+				background-position:center left;
+				background-repeat:no-repeat;
+			}
+			/*
+			使其相对于根元素定位，并将偏移量都设为零，使宽高自动铺满屏幕（此时宽和高需调至最大以满足等式)
+			div{
+				position:absolute;
+				left:0;
+				right:0;
+				top:0;
+				bottom:0;
+				background-color:rgba(0,0,0,.5);
+			}
+			*/
+			div{
+				width:550px;
+				height:500px;
+				margin:0 auto;
+				background-color:rgba(255,255,255,.8);
+				overflow:hidden;
+			}
+			h1{
+				text-align:center;
+				line-height:50px;
+			}
+			form{
+				margin-top:50px;
+			}
+			p{
+				font-size:14px;
+				margin-left:30px;
+				line-height:18px;	
+			}
+			span{
+				color:red;
+				font-size:12px;
+				padding-left:20px;
+			}
+			input,button{
+				width:200px;
+				height:30px;
+				border:1px solid rgb(224,224,224);	
+				padding:0 10px;
+				/*outlinle设为none，使输入时不出现默认的蓝边框*/
+				outline:none;
+				margin-left:30px;
+				margin-bottom:5px;
+			}
+			button{
+				margin-top:20px;
+				width:220px;
+				background-color:#f48c12;
+				border:none;
+				box-shadow:0 0 5px black;
+				border-radius:8px;
+			}
+			button:hover{
+				transform:translateY(-1px) translateX(-1px);
+			}
+			
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var username;
+				var mail;
+				var pwd;
+				var confirm;
+				document.getElementById("username").onblur = function(){
+					//获得username的值
+					username = document.getElementById("username").value;
+					//去除前后空白符
+					username = document.getElementById("username").value.trim();
+					var regExp = /^[0-9A-Za-z]{6,14}$/;
+					//flag位布尔值
+					var flag = regExp.test(username);
+					if(username){
+						if(flag){
+							//情况错误提示信息
+							document.getElementById("vertifyname").innerHTML = "";
+						}else{
+							//给出错误提示信息
+							document.getElementById("vertifyname").innerHTML = 
+							"请输入长度为6-14位由字母或数字组成的用户名";
+							//让username获得焦点
+							document.getElementById("username").focus();
+							//清空username
+							document.getElementById("username").value = "";
+						}
+					}
+				}
+				document.getElementById("e-mail").onblur = function(){
+					mail = document.getElementById("e-mail").value;
+					mail = mail.trim();
+					var regExp = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
+					flag = regExp.test(mail);
+					//判断mail是否为空，不为空才进行验证（mail不是空值则得到true，空值则得到false）
+					if(mail){
+						if(flag){
+							document.getElementById("vertifymail").innerHTML = "";
+						}else{
+							document.getElementById("vertifymail").innerHTML = "您输入的邮箱格式不正确";
+							document.getElementById("e-mail").focus();
+							document.getElementById("e-mail").value = "";
+						}
+					}
+				}
+				document.getElementById("pwd").onblur = function(){
+					pwd = document.getElementById("pwd").value;
+					pwd = pwd.trim();
+					var regExp = /^(?!\d+$)(?!\W+$)[0-9a-zA-Z]{9,16}$/;
+					flag = regExp.test(pwd);
+					if(pwd){
+						if(flag){
+							document.getElementById("vertifypwd").innerHTML = "";
+						}else{
+							document.getElementById("vertifypwd").innerHTML = "请输入长度为9-16位由字母或数字组成的用户名";
+							document.getElementById("pwd").focus();
+							document.getElementById("pwd").value = "";
+						}
+					}	
+				}
+				document.getElementById("confirm").onblur = function(){
+					confirm = document.getElementById("confirm").value;
+					confirm = confirm.trim();
+					if(confirm){
+						if(confirm === pwd){
+							document.getElementById("vertifyagain").innerHTML = "";
+						}else{
+							document.getElementById("vertifyagain").innerHTML = "两次输入的密码不一致";
+							document.getElementById("confirm").focus();
+							document.getElementById("confirm").value = "";
+						}
+					}
+				}
+				document.getElementById("btn").onclick = function(){
+					//如果信心未填写，则为false
+					if(username && mail && pwd && confirm){
+						//提交
+						return true;
+					}else{
+						document.getElementById("mybtn").innerHTML = "您还有信息未填写";
+						//阻止提交
+						return false;
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<h1>账号注册</h1>
+			<form>
+				<p>请输入用户名（6-14位字母或数字）</p>
+				<input type = "text" id = "username" name = "username"><span id = "vertifyname"></span><br>
+				<p>请输入电子邮箱</p>
+				<input type = "text" id = "e-mail" name = "e-mail"><span id = "vertifymail"></span><br>
+				<p>9-16位由字母和数字组成的密码</p>
+				<input type = "password" id = "pwd" name = "password"><span id = "vertifypwd"></span><br>
+				<p>请再次确认您的密码</p>
+				<input type = "password" id = "confirm"><span id = "vertifyagain"></span><br>
+				<!-- submit是提交给服务器，方法二位使type=button，当所有输入没问题后改为submit，或给form的action或submit赋值 -->
+				<button type = "submit" id = "btn">注册</button><span id = "mybtn"></span><br>
+			</form>
+		</div>
+	</body>
+</html>

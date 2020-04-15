@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			div{
+				width:440px;
+				height:380px;
+				margin:0 auto;
+				background-color:rgba(0,0,0,.6);
+				text-align:center;
+			}
+			img{
+				width:400px;
+				height:300px;
+				margin-top:20px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var image = document.getElementById("image");
+				var imgArr = ["images/地球.jpeg","images/风车.jpg","images/麋鹿.jpg","images/星空.jpg"];
+				var index = 0;
+				var time;
+				document.getElementById("start").onclick = function(){
+					//在开始计时前清空当前元素上的计时器（有就清空，没有也不影响，以防多次点击开启多个计时器，无法关掉）
+					clearInterval(time);
+					time = setInterval(function(){
+						image.src=imgArr[index];
+						index++;
+						if(index > imgArr.length-1){
+							index = 0;
+						}
+					},1000);
+				};
+				document.getElementById("stop").onclick = function(){
+					clearInterval(time);
+				};
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box1">
+			<img id="image" alt="photo" src="images/地球.jpeg">
+			<button type="button" id="start">开始</button>
+			<button type="button" id="stop">停止</button>
+		</div>
+	</body>
+</html>

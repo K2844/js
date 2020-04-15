@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			.image-wrapper{
+				width:600px;
+				background-color:greenyellow;
+				margin:0 auto;
+				margin-top:0px;
+				padding:20px;
+				overflow:hidden;
+				text-align:center;
+			}
+			.img{
+				width:600px;
+				height:450px;
+			}
+			button{
+				width:100px;
+				height:40px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				//得到的是一个数组，无论有几张图片，都是数组类型的返回值（通过标签名获取元素）
+				var imgArr = document.getElementsByTagName("img");
+				/*imgArr[0].src = "images/麋鹿.jpg";*/
+				var pictures = ["images/风车.jpg","images/麋鹿.jpg","images/星空.jpg","images/地球.jpeg"];
+				var index = 0;
+				document.getElementById("next").onclick = function(){
+					//翻到最后一张将停止
+					if(index < pictures.length-1){
+						index++;
+						imgArr[0].src = pictures[index];
+					}
+				}
+				document.getElementById("pre").onclick = function(){
+					//翻到第一张将停止
+					if(index > 0){
+						index--;
+						imgArr[0].src = pictures[index];
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="image-wrapper">
+			<img class="img" alt="风车" src="images/风车.jpg">
+			<button type="button" id="pre">上一张</button>
+			<button type="button" id="next">下一张</button>
+		</div>
+	</body>
+</html>

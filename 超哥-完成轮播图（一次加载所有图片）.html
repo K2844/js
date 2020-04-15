@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<style type="text/css">
+			/*#outer{
+				width:800px;
+				height:600px;
+				background-color:rgba(0,0,0,.6);
+				margin:0 auto;
+				text-align:center;
+				position:relative;
+			}
+			.ul-wrapper{
+				width:600px;
+				height:450px;
+				margin:0 auto;
+				text-align:center;
+				position:relative;
+			}
+			ul{
+				width:600px;
+				height:450px;
+				display:flex;
+				align-items:center;
+				position:absolute;
+				left:0;
+			}
+			li{
+				flex-shrink:0;	
+				margin:50px;
+			}
+			img{
+				width:600px;
+				height:450px;
+				vertical-align:top;
+			}
+			.btn{
+				position:absolute;
+				bottom:50px;
+				left:0;
+				right:0;
+				margin:0 auto;
+			}*/
+			#outer{
+				width:700px;
+				height:550px;
+				background-color:greenyellow;
+				margin:0 auto;
+				position:relative;
+				overflow:hidden;
+			}
+			ul{
+				position:absolute;
+				left:0;
+				margin-top:50px;
+			}
+			li{
+				float:left;
+				margin:0 50px;
+			}
+			img{
+				width:600px;
+				height:450px;
+			}
+			#pointer{
+				position:absolute;
+				bottom:25px;
+				left:0;
+			}
+			#pointer a{
+				width:10px;
+				height:10px;
+				background-color:rgba(255,255,255,0.3);
+				border-radius:50%;
+				margin:0 20px;
+				float:left;
+				border:2px solid rgba(0,0,0,0.4);
+			}
+			#pointer a:hover{
+				background-color:rgba(255,255,255,0.8);
+				border:2px solid rgba(0,0,0,0.6);
+			}
+		</style>
+		<script type="text/javascript" src="tools/move.js"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				var outer = document.getElementById("outer");
+				var ul = outer.getElementsByTagName("ul")[0];
+				var liArr = outer.getElementsByTagName("li");
+				//时ul的宽度随着li的数量调整，使其不会因宽度不足不能浮动
+				ul.style.width = 700 * liArr.length + "px";
+				var pointer = document.getElementById("pointer");
+				//使pointer水平居中
+				pointer.style.left = (outer.offsetWidth - pointer.offsetWidth)/2 + "px";
+				var index = 0;
+				var aPointArr = pointer.getElementsByTagName("a");
+				aPointArr[index].style.backgroundColor = "rgba(255,255,255,0.8)";
+				for(var i = 0 ; i < aPointArr.length ; i++){
+					//给a标签（小圆点）添加num属性并赋值（可自行添加，命名）
+					aPointArr[i].num = i;
+					/*aPointArr[i].onclick = function(){
+						alert(this.num);
+					}*/
+				}
+				pointer.onclick = function(event){
+					//用户点击的优先级更高，此时关闭计时器，动作完成后再通过回调函数开启定时器
+					clearInterval(timer);
+					//alert(event.target.num);
+					//防止点到超链接以外的区域控制台获取undefined
+					if(event.target.className == "link"){
+						index = event.target.num;
+						//将所有原点的颜色恢复没点击前的背景
+						for(var i = 0 ; i < aPointArr.length ; i++){
+							aPointArr[i].style.backgroundColor = "";//空串，则恢复默认样式
+						}
+						if(index >= liArr.length - 1){
+							index = 0;
+							ul.style.left =0;
+						}
+						//点中的设置背景色
+						aPointArr[index].style.backgroundColor = "rgba(255,255,255,0.8)";
+						//切图
+						//ul.style.left = -700 * index + "px";//这样没有动画效果，css切图肉眼不可见，除非设置过渡（transition）
+						move(ul,"left",30,-700 * index,30,function(){
+							autoChange();//开启定时器
+						});
+					}
+				};
+				var timer;
+				//页面加载后即执行执行自动切换的回调函数
+				autoChange();
+				//自动切换的回调函数
+				function autoChange(){
+					timer = setInterval(function(){
+						index++;
+						//console.log(index);
+						move(ul,"left",30,-700 * index,30,function(){
+							for(var i = 0 ; i < aPointArr.length ; i++){
+								aPointArr[i].style.backgroundColor = "";//空串，则恢复默认样式
+							}
+							//回调函数，当最后一张图片时（与第一张图一样）小圆点显示为第一个
+							if(index >= liArr.length - 1){
+								index = 0;
+								//通过css切换到第一张，速度快
+								ul.style.left =0;
+							}//index %= (liArr.length - 1)求余，整除是余数是0，这样更简洁
+							aPointArr[index].style.backgroundColor = "rgba(255,255,255,0.8)";
+						});					
+					},3000);
+				};
+			}
+					
+		</script>
+	</head>
+	<body>
+		<div id="outer">
+			<ul class="image">
+				<li><a href="javascript:;"><img alt="photo" src="images/麋鹿.jpg"></a></li>
+				<li><a href="javascript:;"><img alt="photo" src="images/风车.jpg"></a></li>
+				<li><a href="javascript:;"><img alt="photo" src="images/地球.jpeg"></a></li>
+				<li><a href="javascript:;"><img alt="photo" src="images/星空.jpg"></a></li>
+				<li><a href="javascript:;"><img alt="photo" src="images/麋鹿.jpg"></a></li>
+			</ul>
+			<div id="pointer">
+				<a class="link" href="javascript:;"></a>
+				<a class="link" href="javascript:;"></a>
+				<a class="link" href="javascript:;"></a>
+				<a class="link" href="javascript:;"></a>
+			</div>
+		</div>
+	</body>
+</html>

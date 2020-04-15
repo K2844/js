@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			#box1{
+				width:100px;
+				height:100px;
+				background-color:red;
+				position:absolute;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var direction;
+				var speed = 0;
+				var timer = setInterval(function(){
+					switch(direction){
+						//←↑→↓
+						case 37:
+							box1.style.left = box1.offsetLeft - 10 - speed + "px";
+							break;
+						case 38:
+							box1.style.top = box1.offsetTop - 10 - speed + "px";
+							break;
+						case 39:
+							box1.style.left = box1.offsetLeft + 10 + speed + "px";
+							break;
+						case 40:
+							box1.style.top = box1.offsetTop + 10 + speed + "px";
+					}
+					switch(direction){
+						//awds
+						case 65:
+							box1.style.left = box1.offsetLeft - 20 + "px";
+							break;
+						case 87:
+							box1.style.top = box1.offsetTop - 20 + "px";
+							break;
+						case 68:
+							box1.style.left = box1.offsetLeft + 20 + "px";
+							break;
+						case 83:
+							box1.style.top = box1.offsetTop + 20 + "px";
+					}
+				},30);
+				var box1 = document.getElementById("box1");
+				document.onkeydown = function(event){
+					console.log(event.keyCode);
+					if(event.ctrlKey){//ctrl键
+						speed = 50;
+					}else{
+						speed = 0;
+					}
+					direction = event.keyCode;
+					
+				};
+				document.onkeyup = function(){
+					direction = 0;
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div id="box1"></div>
+	</body>
+</html>
